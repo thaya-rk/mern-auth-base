@@ -23,21 +23,12 @@ export default function Register() {
       if (response.data.error) {
         toast.error(response.data.error);
       } else {
-        setData({
-          name: "",
-          email: "",
-          password: "",
-        });
+        setData({});
         toast.success("Registration successful. Welcome!!");
         navigate('/login');
       }
     } catch (error) {
-      if (error.response && error.response.data && error.response.data.error) {
-        toast.error(error.response.data.error);
-      } else {
-        toast.error("Something went wrong. Please try again.");
-      }
-      console.error(error);
+      console.log(error);
     }
   };
 
