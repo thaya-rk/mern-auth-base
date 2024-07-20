@@ -14,9 +14,7 @@ export default function Login() {
     e.preventDefault();
     const { email, password } = data;
     try {
-      const response = await axios.post('http://localhost:8000/login', { // Ensure the URL matches your server setup
-        email, password
-      });
+      const response = await axios.post('http://localhost:8000/login', { email, password });
       if (response.data.error) {
         toast.error(response.data.error);
       } else {
@@ -25,10 +23,10 @@ export default function Login() {
           password: ""
         });
         toast.success("Login successful!");
-        navigate("/");
+        navigate("/dashboard");
       }
     } catch (error) {
-      console.error("Error occurred:", error); // Debugging: Log errors
+      console.error("Error occurred:", error.response ? error.response.data : error.message); // Detailed error logging
       toast.error("Something went wrong. Please try again.");
     }
   };
@@ -38,14 +36,14 @@ export default function Login() {
       <form onSubmit={loginUser}>
         <label>Email</label>
         <input
-          type='email' // Changed type to 'email' for better validation
+          type='email' 
           placeholder='Enter email..'
           value={data.email}
           onChange={(e) => setData({ ...data, email: e.target.value })}
         />
         <label>Password</label>
         <input
-          type='password' // Changed type to 'password' for better security
+          type='password' 
           placeholder='Enter password..'
           value={data.password}
           onChange={(e) => setData({ ...data, password: e.target.value })}
